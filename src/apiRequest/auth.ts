@@ -6,6 +6,8 @@ const endpoint = {
 }
 const authApiRequest = {
     serverLogin: (body: LoginBodyType) => http.post<LoginResType>(endpoint.serverLoginEndpoint, body),
-    login: (body: LoginBodyType) => http.post<LoginResType>(endpoint.loginEndPoint, body)
+    login: (body: LoginBodyType) => http.post<LoginResType>(endpoint.loginEndPoint, body, {
+        baseUrl: ''
+    })
 }
 export default authApiRequest
