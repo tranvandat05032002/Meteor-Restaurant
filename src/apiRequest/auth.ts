@@ -1,26 +1,21 @@
 import http from "@/lib/http";
 import { LoginBodyType, LoginResType, LogoutBodyType } from "@/schemaValidations/auth.schema";
-const endpoint = {
-    serverLoginEndpoint: '/auth/login',
-    loginEndPoint: '/api/auth/login',
-    serverLogoutEndpoint: '/auth/logout',
-    logoutEndpoint: '/api/auth/logout'
-}
+import routeEndpoint from "./routes";
 const authApiRequest = {
-    serverLogin: (body: LoginBodyType) => http.post<LoginResType>(endpoint.serverLoginEndpoint, body),
-    login: (body: LoginBodyType) => http.post<LoginResType>(endpoint.loginEndPoint, body, {
+    serverLogin: (body: LoginBodyType) => http.post<LoginResType>(routeEndpoint.serverLogin, body),
+    login: (body: LoginBodyType) => http.post<LoginResType>(routeEndpoint.login, body, {
         baseUrl: ''
     }),
     sLogout: (body: LogoutBodyType & {
         accessToken: string
-    }) => http.post(endpoint.serverLogoutEndpoint, {
+    }) => http.post(routeEndpoint.serverLogout, {
         refreshToken: body.refreshToken
     }, {
         headers: {
             Authorization: `Bearer ${body.accessToken}`
         }
     }),
-    logout: () => http.post(endpoint.logoutEndpoint, null, {
+    logout: () => http.post(routeEndpoint.logout, null, {
         baseUrl: ''
     })
 }

@@ -35,8 +35,8 @@ export default function UpdateProfileForm() {
                   <FormItem>
                     <div className='flex gap-2 items-start justify-start'>
                       <Avatar className='aspect-square w-[100px] h-[100px] rounded-md object-cover'>
-                        <AvatarImage src={'Duoc'} />
-                        <AvatarFallback className='rounded-none'>{'duoc'}</AvatarFallback>
+                        <AvatarImage src={'Dat'} />
+                        <AvatarFallback className='rounded-none'>{'dat'}</AvatarFallback>
                       </Avatar>
                       <input type='file' accept='image/*' className='hidden' />
                       <button
