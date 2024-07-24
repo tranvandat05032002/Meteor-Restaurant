@@ -7,7 +7,7 @@ const routeEndpoint = {
     // Media
     upload: '/media/upload',
     // Payment
-    createPayment: 'api/create-payment-intent',
+    createPayment: '/api/create-payment-intent',
     // Account
     me: '/accounts/me',
     updateMe: '/accounts/me',
