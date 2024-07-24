@@ -14,7 +14,7 @@ export default function Home() {
           className='absolute top-0 left-0 w-full h-full object-cover'
         />
         <div className='z-20 relative py-10 md:py-20 px-4 sm:px-10 md:px-20'>
-          <h1 className='text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold'>Nhà hàng Big Boy</h1>
+          <h1 className='text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold'>Nhà hàng Meteor</h1>
           <p className='text-center text-sm sm:text-base mt-4'>Vị ngon, trọn khoảnh khắc</p>
         </div>
       </div>
@@ -24,7 +24,7 @@ export default function Home() {
           {Array(4)
             .fill(0)
             .map((_, index) => (
-              <div className='flex gap-4 w' key={index}>
+              <div className='flex gap-4' key={index}>
                 <div className='flex-shrink-0'>
                   <Image
                     src='/banner.png'
