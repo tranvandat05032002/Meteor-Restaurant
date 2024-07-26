@@ -26,7 +26,7 @@ export default function UpdateProfileForm() {
     resolver: zodResolver(UpdateMeBody),
     defaultValues: {
       name: '',
-      avatar: ''
+      avatar: undefined
     }
   })
   const avatar = form.watch('avatar')
@@ -36,7 +36,7 @@ export default function UpdateProfileForm() {
       const { name, avatar } = data.payload.data
       form.reset({
         name,
-        avatar: avatar ?? ''
+        avatar: avatar ?? undefined
       })
     }
   }, [form, data])
@@ -100,7 +100,6 @@ export default function UpdateProfileForm() {
                       <input type='file' accept='image/*' className='hidden' ref={avatarInputRef} onChange={(e) => {
                         const file = e.target.files?.[0]
                         if (file) {
-                          console.log('http://localhost:3000/' + file.name)
                           setFile(file)
                           field.onChange('http://localhost:3000/' + field.name)
                         }
