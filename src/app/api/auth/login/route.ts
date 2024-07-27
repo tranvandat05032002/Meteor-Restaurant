@@ -29,7 +29,6 @@ export async function POST(request: Request) {
         })
         return Response.json(payload)
     } catch (error) {
-        console.log("runiing catch")
         if (error instanceof HttpError) {
             return Response.json(error.payload, {
                 status: error.status

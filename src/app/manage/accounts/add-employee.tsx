@@ -18,11 +18,17 @@ import { useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { useAddAccountMutation } from '@/queries/useAccount'
+import { handleErrorApi } from '@/lib/utils'
+import { useUploadMutation } from '@/queries/useMedia'
+import { toast } from '@/components/ui/use-toast'
 
 export default function AddEmployee() {
   const [file, setFile] = useState<File | null>(null)
   const [open, setOpen] = useState(false)
   const avatarInputRef = useRef<HTMLInputElement | null>(null)
+  const addAccountMutation = useAddAccountMutation()
+  const uploadMediaMutation = useUploadMutation()
   const form = useForm<CreateEmployeeAccountBodyType>({
     resolver: zodResolver(CreateEmployeeAccountBody),
     defaultValues: {
@@ -41,7 +47,37 @@ export default function AddEmployee() {
     }
     return avatar
   }, [file, avatar])
-
+  const reset = () => {
+    form.reset()
+    setFile(null)
+  }
+  const onSubmit = async (values: CreateEmployeeAccountBodyType) => {
+    if (addAccountMutation.isPending) return
+    try {
+      let body = values
+      if (file) {
+        const formData = new FormData()
+        formData.append('file', file)
+        const uploadImageResult = await uploadMediaMutation.mutateAsync(formData)
+        const imageUrl = uploadImageResult.payload.data
+        body = {
+          ...values,
+          avatar: imageUrl
+        }
+      }
+      const result = await addAccountMutation.mutateAsync(body)
+      toast({
+        description: result.payload.message
+      })
+      reset()
+      setOpen(false)
+    } catch (error) {
+      handleErrorApi({
+        error,
+        setError: form.setError
+      })
+    }
+  }
   return (
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
@@ -56,7 +92,9 @@ export default function AddEmployee() {
           <DialogDescription>Các trường tên, email, mật khẩu là bắt buộc</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form noValidate className='grid auto-rows-max items-start gap-4 md:gap-8' id='add-employee-form'>
+          <form noValidate className='grid auto-rows-max items-start gap-4 md:gap-8' id='add-employee-form' onSubmit={form.handleSubmit(onSubmit, (e) => {
+            console.log(e)
+          })}>
             <div className='grid gap-4 py-4'>
               <FormField
                 control={form.control}
@@ -102,7 +140,7 @@ export default function AddEmployee() {
                     <div className='grid grid-cols-4 items-center justify-items-start gap-4'>
                       <Label htmlFor='name'>Tên</Label>
                       <div className='col-span-3 w-full space-y-2'>
-                        <Input id='name' className='w-full' {...field} />
+                        <Input id='name' className='w-full' {...field} autoFocus/>
                         <FormMessage />
                       </div>
                     </div>
