@@ -33,3 +33,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvb
 {
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJPd25lciIsInRva2VuVHlwZSI6IlJlZnJlc2hUb2tlbiIsImlhdCI6MTcyMTcyNjU4NiwiZXhwIjoxNzIxODEyOTg2fQ.tLOjvWePayG9owfNl7V7xLHtnE9fJQG1Pu947AnpAHs"
 }
+
+###
+GET {{baseServerUrl}}/accounts/me HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJPd25lciIsInRva2VuVHlwZSI6IkFjY2Vzc1Rva2VuIiwiaWF0IjoxNzIyMDk3NTM5LCJleHAiOjE3MjIxMDExMzl9.bd3DGdzCtc1JC3uOgVsElDfmvO7YlhQemJ6CoqKxpmk
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJPd25lciIsInRva2VuVHlwZSI6IlJlZnJlc2hUb2tlbiIsImlhdCI6MTcyMjA5NzUzOSwiZXhwIjoxNzIyMTgzOTM5fQ.gXyu5_-x9eBs-QuoqKjthkMPKLVDzJkj_Rk4sg94y_g"
+}

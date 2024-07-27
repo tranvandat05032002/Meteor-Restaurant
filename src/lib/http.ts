@@ -153,6 +153,7 @@ const request = async <Response>(
     if (isClient) {
         const normalizeUrl = normalizePath(url)
         if (normalizeUrl === 'api/auth/login') {
+            console.log('Running set localStorage')
             const { accessToken, refreshToken } = (payload as LoginResType).data
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('refreshToken', refreshToken)
