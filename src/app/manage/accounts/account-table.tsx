@@ -43,6 +43,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { useSearchParams } from 'next/navigation'
 import AutoPagination from '@/components/auto-pagination'
+import { useGetAccountList } from '@/queries/useAccount'
 
 type AccountItem = AccountListResType['data'][0]
 
@@ -52,10 +53,10 @@ const AccountTableContext = createContext<{
   employeeDelete: AccountItem | null
   setEmployeeDelete: (value: AccountItem | null) => void
 }>({
-  setEmployeeIdEdit: (value: number | undefined) => {},
+  setEmployeeIdEdit: (value: number | undefined) => { },
   employeeIdEdit: undefined,
   employeeDelete: null,
-  setEmployeeDelete: (value: AccountItem | null) => {}
+  setEmployeeDelete: (value: AccountItem | null) => { }
 })
 
 export const columns: ColumnDef<AccountType>[] = [
@@ -165,7 +166,8 @@ export default function AccountTable() {
   // const params = Object.fromEntries(searchParam.entries())
   const [employeeIdEdit, setEmployeeIdEdit] = useState<number | undefined>()
   const [employeeDelete, setEmployeeDelete] = useState<AccountItem | null>(null)
-  const data: any[] = []
+  const accountListQuery = useGetAccountList()
+  const data = accountListQuery.data?.payload.data ?? []
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -207,7 +209,7 @@ export default function AccountTable() {
   return (
     <AccountTableContext.Provider value={{ employeeIdEdit, setEmployeeIdEdit, employeeDelete, setEmployeeDelete }}>
       <div className='w-full'>
-        <EditEmployee id={employeeIdEdit} setId={setEmployeeIdEdit} onSubmitSuccess={() => {}} />
+        <EditEmployee id={employeeIdEdit} setId={setEmployeeIdEdit} onSubmitSuccess={() => { }} />
         <AlertDialogDeleteAccount employeeDelete={employeeDelete} setEmployeeDelete={setEmployeeDelete} />
         <div className='flex items-center py-4'>
           <Input
