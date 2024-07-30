@@ -42,3 +42,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvb
 {
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJPd25lciIsInRva2VuVHlwZSI6IlJlZnJlc2hUb2tlbiIsImlhdCI6MTcyMjA5NzUzOSwiZXhwIjoxNzIyMTgzOTM5fQ.gXyu5_-x9eBs-QuoqKjthkMPKLVDzJkj_Rk4sg94y_g"
 }
+### Dishes
+GET {{baseServerUrl}}/dishes HTTP/1.1
