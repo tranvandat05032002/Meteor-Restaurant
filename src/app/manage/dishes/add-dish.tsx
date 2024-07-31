@@ -17,6 +17,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useUploadMutation } from '@/queries/useMedia'
 import { useAddDishMutation } from '@/queries/useDish'
 import { toast } from '@/components/ui/use-toast'
+import NProgress from 'nprogress'
 
 export default function AddDish() {
   const [file, setFile] = useState<File | null>(null)
@@ -47,6 +48,7 @@ export default function AddDish() {
     setFile(null)
   }
   const onSubmit = async (values: CreateDishBodyType) => {
+    NProgress.start()
     if (addDishMutation.isPending) return;
     try {
       let body = values;
@@ -71,6 +73,10 @@ export default function AddDish() {
         error,
         setError: form.setError
       })
+    }
+    finally {
+      NProgress.done()
+      NProgress.remove()
     }
   }
   return (

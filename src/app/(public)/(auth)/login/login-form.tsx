@@ -11,6 +11,7 @@ import { useLoginMutation } from '@/queries/useAuth'
 import { toast } from '@/components/ui/use-toast'
 import { handleErrorApi } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
+import NProgress from 'nprogress'
 
 export default function LoginForm() {
   const loginMutation = useLoginMutation()
@@ -26,6 +27,7 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginBodyType) => {
     // Khi nhấn submit thì React hook form sẽ validate cái form bằng zod schema ở client trước
     // Nếu không pass qua vòng này thì sẽ không gọi api
+    NProgress.start()
     if (loginMutation.isPending) return
     try {
       const result = await loginMutation.mutateAsync(data);
@@ -38,6 +40,10 @@ export default function LoginForm() {
         error,
         setError: form.setError
       })
+    }
+    finally {
+      NProgress.done()
+      NProgress.remove()
     }
   }
 

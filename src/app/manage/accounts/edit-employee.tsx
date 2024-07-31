@@ -22,6 +22,7 @@ import { useGetAccount, useUpdateAccountMutation } from '@/queries/useAccount'
 import { useUploadMutation } from '@/queries/useMedia'
 import { handleErrorApi } from '@/lib/utils'
 import { toast } from '@/components/ui/use-toast'
+import NProgress from 'nprogress'
 
 export default function EditEmployee({
   id,
@@ -74,6 +75,7 @@ export default function EditEmployee({
     }
   }, [data, form])
   const onSubmit = async (values: UpdateEmployeeAccountBodyType) => {
+    NProgress.start()
     if (updateEmployeeMutation.isPending) return;
     try {
       let body: UpdateEmployeeAccountBodyType & { id: number } = {
@@ -101,6 +103,10 @@ export default function EditEmployee({
         error,
         setError: form.setError
       })
+    }
+    finally {
+      NProgress.done()
+      NProgress.remove()
     }
   }
   const reset = () => {

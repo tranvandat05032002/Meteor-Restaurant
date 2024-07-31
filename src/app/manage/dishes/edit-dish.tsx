@@ -24,6 +24,7 @@ import { DishStatus, DishStatusValues } from '@/constants/type'
 import { Textarea } from '@/components/ui/textarea'
 import { useGetDish, useUpdateDishMutation } from '@/queries/useDish'
 import { useUploadMutation } from '@/queries/useMedia'
+import NProgress from 'nprogress'
 
 export default function EditDish({
   id,
@@ -72,8 +73,13 @@ export default function EditDish({
       })
     }
   }, [data, form])
+  const reset = () => {
+    setId(undefined)
+    setFile(null)
+  }
   const onSubmit = async (values: UpdateDishBodyType) => {
     if (updateDishMutation.isPending) return;
+    NProgress.start()
     try {
       let body: UpdateDishBodyType & { id: number } = {
         id: id as number,
@@ -101,10 +107,10 @@ export default function EditDish({
         setError: form.setError
       })
     }
-  }
-  const reset = () => {
-    setId(undefined)
-    setFile(null)
+    finally {
+      NProgress.done()
+      NProgress.remove()
+    }
   }
   return (
     <Dialog

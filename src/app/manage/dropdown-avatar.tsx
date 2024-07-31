@@ -14,6 +14,8 @@ import { useLogoutMutation } from '@/queries/useAuth'
 import { handleErrorApi } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useAccountMe } from '@/queries/useAccount'
+import NProgress from 'nprogress'
+import { toast } from '@/components/ui/use-toast'
 
 export default function DropdownAvatar() {
   const logoutMutation = useLogoutMutation()
@@ -21,14 +23,22 @@ export default function DropdownAvatar() {
   const { data } = useAccountMe()
   const account = data?.payload.data
   const logout = async () => {
+    NProgress.start()
     if (logoutMutation.isPending) return;
     try {
-      await logoutMutation.mutateAsync()
+      const result = await logoutMutation.mutateAsync() as any
+      toast({
+        description: result.payload?.message
+      })
       router.push('/')
     } catch (error: any) {
       handleErrorApi({
         error
       })
+    }
+    finally {
+      NProgress.done()
+      NProgress.remove()
     }
   }
   return (

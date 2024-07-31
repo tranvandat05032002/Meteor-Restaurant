@@ -46,6 +46,7 @@ import AutoPagination from '@/components/auto-pagination'
 import { useDeleteAccountMutation, useGetAccountList } from '@/queries/useAccount'
 import { toast } from '@/components/ui/use-toast'
 import { handleErrorApi } from '@/lib/utils'
+import NProgress from 'nprogress'
 
 type AccountItem = AccountListResType['data'][0]
 
@@ -136,6 +137,7 @@ function AlertDialogDeleteAccount({
 }) {
   const { mutateAsync } = useDeleteAccountMutation()
   const deleteAccount = async () => {
+    NProgress.start()
     if (employeeDelete) {
       try {
         const result = await mutateAsync(employeeDelete.id)
@@ -147,6 +149,10 @@ function AlertDialogDeleteAccount({
         handleErrorApi({
           error
         })
+      }
+      finally {
+        NProgress.done()
+        NProgress.remove()
       }
     }
   }

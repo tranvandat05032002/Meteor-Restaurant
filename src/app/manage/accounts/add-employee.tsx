@@ -21,6 +21,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useAddAccountMutation } from '@/queries/useAccount'
 import { handleErrorApi } from '@/lib/utils'
 import { useUploadMutation } from '@/queries/useMedia'
+import NProgress from 'nprogress'
 import { toast } from '@/components/ui/use-toast'
 
 export default function AddEmployee() {
@@ -52,6 +53,7 @@ export default function AddEmployee() {
     setFile(null)
   }
   const onSubmit = async (values: CreateEmployeeAccountBodyType) => {
+    NProgress.start()
     if (addAccountMutation.isPending) return
     try {
       let body = values
@@ -76,6 +78,10 @@ export default function AddEmployee() {
         error,
         setError: form.setError
       })
+    }
+    finally {
+      NProgress.done()
+      NProgress.remove()
     }
   }
   return (
@@ -140,7 +146,7 @@ export default function AddEmployee() {
                     <div className='grid grid-cols-4 items-center justify-items-start gap-4'>
                       <Label htmlFor='name'>Tên</Label>
                       <div className='col-span-3 w-full space-y-2'>
-                        <Input id='name' className='w-full' {...field} autoFocus/>
+                        <Input id='name' className='w-full' {...field} autoFocus />
                         <FormMessage />
                       </div>
                     </div>

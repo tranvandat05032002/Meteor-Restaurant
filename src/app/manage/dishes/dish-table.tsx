@@ -45,6 +45,7 @@ import EditDish from '@/app/manage/dishes/edit-dish'
 import AddDish from '@/app/manage/dishes/add-dish'
 import { useDeleteDishMutation, useGetDishList } from '@/queries/useDish'
 import { toast } from '@/components/ui/use-toast'
+import NProgress from 'nprogress'
 
 type DishItem = DishListResType['data'][0]
 
@@ -140,6 +141,7 @@ function AlertDialogDeleteDish({
 }) {
   const { mutateAsync } = useDeleteDishMutation()
   const deleteDish = async () => {
+    NProgress.start()
     if (dishDelete) {
       try {
         const result = await mutateAsync(dishDelete.id)
@@ -151,6 +153,10 @@ function AlertDialogDeleteDish({
         handleErrorApi({
           error
         })
+      }
+      finally {
+        NProgress.done()
+        NProgress.remove()
       }
     }
   }
