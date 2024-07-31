@@ -121,7 +121,7 @@ export default function EditDish({
           <DialogDescription>Các trường sau đây là bắ buộc: Tên, ảnh</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form noValidate className='grid auto-rows-max items-start gap-4 md:gap-8' id='edit-dish-form' onSubmit={form.handleSubmit(onSubmit)} onReset={reset}>
+          <form noValidate className='grid auto-rows-max items-start gap-4 md:gap-8' id='edit-dish-form' onSubmit={form.handleSubmit(onSubmit, console.log)} onReset={reset}>
             <div className='grid gap-4 py-4'>
               <FormField
                 control={form.control}
