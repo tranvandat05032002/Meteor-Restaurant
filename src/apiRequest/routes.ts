@@ -3,6 +3,7 @@ import { UpdateEmployeeAccountBodyType } from "@/schemaValidations/account.schem
 const mediaPrefix = '/media'
 const accountPrefix = '/accounts'
 const dishPrefix = '/dishes'
+const tablePrefix = '/tables'
 const routeEndpoint = {
     // Auth
     serverLogin: `/auth/login`,
@@ -27,7 +28,13 @@ const routeEndpoint = {
     addDish: `${dishPrefix}`,
     getDish: (id: number) => `${dishPrefix}/${id}`,
     updateDish: (id: number) => `${dishPrefix}/${id}`,
-    deleteDish: (id: number) => `${dishPrefix}/${id}`
+    deleteDish: (id: number) => `${dishPrefix}/${id}`,
+    // Tables
+    listTables: `${tablePrefix}`,
+    addTable: `${tablePrefix}`,
+    getTable: (id: number) => `${tablePrefix}/${id}`,
+    updateTable: (id: number) => `${tablePrefix}/${id}`,
+    deleteTable: (id: number) => `${tablePrefix}/${id}`,
 } as const // readonly
 
 export default routeEndpoint
