@@ -25,6 +25,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useGetDish, useUpdateDishMutation } from '@/queries/useDish'
 import { useUploadMutation } from '@/queries/useMedia'
 import NProgress from 'nprogress'
+import apiRevalidateRequest from '@/apiRequest/revalidate'
 
 export default function EditDish({
   id,
@@ -97,6 +98,7 @@ export default function EditDish({
       }
       const result = await updateDishMutation.mutateAsync(body)
       onSubmitSuccess && onSubmitSuccess()
+      await apiRevalidateRequest("dishes")
       toast({
         description: result.payload.message
       })

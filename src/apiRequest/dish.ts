@@ -3,7 +3,7 @@ import { CreateDishBodyType, DishListResType, DishResType, UpdateDishBodyType } 
 import routeEndpoint from "./routes";
 
 export const dishApiRequest = {
-  list: () => http.get<DishListResType>(routeEndpoint.listDish),
+  list: () => http.get<DishListResType>(routeEndpoint.listDish, { next: { tags: ["dishes"] } }),
   add: (body: CreateDishBodyType) => http.post<DishResType>(routeEndpoint.addDish, body),
   getDish: (id: number) => http.get<DishResType>(routeEndpoint.getDish(id)),
   updateDish: (id: number, body: UpdateDishBodyType) => http.put<DishResType>(routeEndpoint.updateDish(id), body),

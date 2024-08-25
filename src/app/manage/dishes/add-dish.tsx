@@ -18,6 +18,7 @@ import { useUploadMutation } from '@/queries/useMedia'
 import { useAddDishMutation } from '@/queries/useDish'
 import { toast } from '@/components/ui/use-toast'
 import NProgress from 'nprogress'
+import apiRevalidateRequest from '@/apiRequest/revalidate'
 
 export default function AddDish() {
   const [file, setFile] = useState<File | null>(null)
@@ -63,6 +64,7 @@ export default function AddDish() {
         }
       }
       const result = await addDishMutation.mutateAsync(body)
+      await apiRevalidateRequest("dishes")
       toast({
         description: result.payload.message
       })
