@@ -1,6 +1,6 @@
 
 import envClientConfig from '@/configClient'
-import { normalizePath } from '@/lib/utils'
+import { normalizePath, removeTokensFromLocalStorage, setAccessTokenLocalStorage, setRefreshTokenLocalStorage } from '@/lib/utils'
 import { LoginResType } from '@/schemaValidations/auth.schema'
 import { redirect } from 'next/navigation'
 
@@ -153,13 +153,13 @@ const request = async <Response>(
     if (isClient) {
         const normalizeUrl = normalizePath(url)
         if (normalizeUrl === 'api/auth/login') {
-            console.log('Running set localStorage')
             const { accessToken, refreshToken } = (payload as LoginResType).data
-            localStorage.setItem('accessToken', accessToken)
-            localStorage.setItem('refreshToken', refreshToken)
-        } else if (normalizeUrl === 'api/auth/logout') {
-            localStorage.removeItem('accessToken')
-            localStorage.removeItem('refreshToken')
+            // localStorage.setItem('accessToken', accessToken)
+            // localStorage.setItem('refreshToken', refreshToken)
+            setAccessTokenLocalStorage(accessToken)
+            setRefreshTokenLocalStorage(refreshToken)
+        } else if (['api/auth/logout', 'api/guest/auth/logout'].includes(normalizeUrl)) {
+            removeTokensFromLocalStorage()
         }
     }
     return data
