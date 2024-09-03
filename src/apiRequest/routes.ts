@@ -35,6 +35,13 @@ const routeEndpoint = {
     getTable: (id: number) => `${tablePrefix}/${id}`,
     updateTable: (id: number) => `${tablePrefix}/${id}`,
     deleteTable: (id: number) => `${tablePrefix}/${id}`,
+    // Guest
+    guestLogin: '/api/guest/auth/login',
+    guestServerLogin: '/guest/auth/login',
+    guestLogout: '/api/guest/auth/logout',
+    guestServerLogout: '/guest/auth/logout',
+    guestRefreshToken: '/api/guest/auth/refresh-token',
+    guestServerRefreshToken: '/guest/auth/refresh-token'
 } as const // readonly
 
 export default routeEndpoint
